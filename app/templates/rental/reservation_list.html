@@ -1,0 +1,27 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block container %}
+<table class="table" style="margin-top: 35px;">
+    <caption>Reservations with "previous reservation ID".</caption>
+    <thead>
+        <tr>
+            <th>Rental Name</th>
+            <th>Reservation Id</th>
+            <th>Check in</th>
+            <th>Check out</th>
+            <th>Prev. Reservation Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{reservation.rental}}</td>
+            <td>{{reservation.id}} ({{ reservation.title}})</td>
+            <td>{{ reservation.checkin }}</td>
+            <th>{{ reservation.checkout }}</th>
+            <td>{{reservation.prev_id}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock container %}

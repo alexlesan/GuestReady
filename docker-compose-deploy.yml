@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+    command: >
+      sh -c "python manage.py check_db_connection &&
+             python manage.py migrate && 
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      -  static_data:/vol/web
+    environment:
+      - SECRET_KEY=gUEStReady#Secret$Key@DevT3st
+      - DEBUG=1
+      - DB_HOST=db
+      - DB_NAME=guest_ready_db
+      - DB_USER=guest_ready_user
+      - DB_PASS=guest_ready_password
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+    depends_on:
+      - db
+
+  proxy:
+    build: 
+      context: ./nginx
+    restart: always
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
+
+  db:
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=guest_ready_db
+      - POSTGRES_USER=guest_ready_user
+      - POSTGRES_PASSWORD=guest_ready_password
+
+volumes:
+  postgres-data:
+  static_data:
