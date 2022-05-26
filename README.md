@@ -48,4 +48,4 @@ Res-5(2022-01-20, 2022-02-11)
 #
 
 # Result preview
-![alt text](https://github.com/alexlesan/GuestReady/blob/main/Reservation.png?raw=true)
+![alt text](https://github.com/alexlesan/GuestReady/blob/main/Reservations.png?raw=true)
