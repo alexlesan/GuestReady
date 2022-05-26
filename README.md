@@ -12,8 +12,8 @@ Requirements:
 GuestReady rental test
 Lets we have a django project.
 With models:
-
-Rental
+#
+```Rental
  - name
 
 Reservation
@@ -44,7 +44,7 @@ Res-5(2022-01-20, 2022-02-11)
 |rental-1   |Res-3 ID| 2022-02-20|2022-03-10| Res-2 ID               |
 |rental-2   |Res-4 ID| 2022-01-02|2022-01-20| -                      |
 |rental-2   |Res-5 ID| 2022-01-20|2022-01-11| Res-4 ID               |
-
+```
 #
 
 # Result preview
