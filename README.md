@@ -13,7 +13,8 @@ GuestReady rental test
 Lets we have a django project.
 With models:
 #
-```Rental
+```
+Rental
  - name
 
 Reservation
