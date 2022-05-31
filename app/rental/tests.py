@@ -38,6 +38,7 @@ class ReservationTestCase(TestCase):
     def setUp(self):
         rental = Rental.objects.create(name='Rental-test')
         Reservation.objects.create(rental=rental, title="Reservation-1", checkin='2022-01-20', checkout='2022-01-25')
+        Reservation.objects.create(rental=rental, title="Reservation-2", checkin='2022-01-20', checkout='2022-02-10')
 
     def test_column_title_label(self):
         res = Reservation.objects.get(title='Reservation-1')

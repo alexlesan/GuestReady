@@ -19,12 +19,11 @@ class Rental(models.Model):
         verbose_name_plural = "Rentals"
 
 
-
 class Reservation(models.Model):
     rental = models.ForeignKey(Rental, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     checkin = models.DateField()
-    checkout = models.DateField(blank=True, null=True)
+    checkout = models.DateField()
 
     def __str__(self) -> str:
         return f"{self.title}({self.checkin} - {self.checkout})"

@@ -19,7 +19,7 @@
             <td>{{reservation.id}} ({{ reservation.title}})</td>
             <td>{{ reservation.checkin }}</td>
             <th>{{ reservation.checkout }}</th>
-            <td>{{reservation.prev_id}}</td>
+            <td>{{reservation.prev_id|default:'---'}}</td>
         </tr>
         {% endfor %}
     </tbody>
