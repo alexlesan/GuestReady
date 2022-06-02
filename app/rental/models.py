@@ -22,17 +22,17 @@ class Rental(models.Model):
 
 class ReservationQuerySet(models.QuerySet):
 
-    def collect(self):
+    def with_previous_reservation(self):
         subquery = self.filter(rental=OuterRef("rental"), checkin__lt=OuterRef("checkin")).exclude(id=OuterRef('id')).order_by("-checkin")
-        return self.annotate(prev_id=Subquery(subquery.values('id')[:1])).order_by('rental__name', 'checkin')
+        return self.annotate(prev_id=Subquery(subquery.values('id')[:1]))
 
 class ReservationManager(models.Manager):
 
     def get_queryset(self):
         return ReservationQuerySet(self.model, using=self._db)
 
-    def collect(self):
-        return self.get_queryset().collect()
+    def with_previous_reservation(self):
+        return self.get_queryset().with_previous_reservation()
 
 class Reservation(models.Model):
     rental = models.ForeignKey(Rental, on_delete=models.CASCADE)
@@ -41,6 +41,7 @@ class Reservation(models.Model):
     checkout = models.DateField()
 
     objects= ReservationManager()
+    
 
     def __str__(self) -> str:
         return f"{self.title}({self.checkin} - {self.checkout})"

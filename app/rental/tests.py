@@ -1,6 +1,3 @@
-import imp
-from unicodedata import name
-from urllib import response
 from django.test import TestCase
 from .models import Rental, Reservation
 
@@ -56,12 +53,15 @@ class ReservationTestCase(TestCase):
         self.assertEqual(column_checkout, 'checkout')
 
     def test_reservation_without_prev_res_id(self):
-        res = Reservation.objects.collect().get(title='Reservation-1')
-        self.assertEqual(res.prev_id, None)
+        res = Reservation.objects.with_previous_reservation().get(title='Reservation-1')
+        self.assertIsNone(res.prev_id)
 
     def test_reservation_with_prev_res_id(self):
-        res = Reservation.objects.collect().get(title="Reservation-2")
-        self.assertNotEqual(res.prev_id, None)
+        prev_res = Reservation.objects.get(title='Reservation-1')
+        res = Reservation.objects.with_previous_reservation().get(title="Reservation-2")
+        self.assertIsNotNone(res.prev_id)
+        self.assertEqual(res.prev_id, prev_res.id)
+        
 
 
 class UrlsTestCase(TestCase):
